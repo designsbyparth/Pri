@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For Pri 🌿</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+width:100%;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:url("background.jpg") center/cover no-repeat;
+font-family:'Poppins',sans-serif;
+text-align:center;
+color:white;
+position:relative;
+}
+
+/* soft overlay */
+body::before{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.35);
+z-index:0;
+}
+
+.container{
+position:relative;
+z-index:2;
+width:90%;
+max-width:500px;
+padding:20px;
+}
+
+/* Buttons */
+button{
+padding:12px 22px;
+margin:8px;
+border:none;
+border-radius:30px;
+background:white;
+color:#6b3e2e;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+font-size:16px;
+}
+
+button:hover{
+transform:scale(1.08);
+}
+
+#noBtn{
+position:absolute;
+transition:0.5s ease;
+}
+
+/* Responsive heart */
+.heart{
+font-size:clamp(80px, 15vw, 130px);
+cursor:pointer;
+animation:pulse 1.5s infinite;
+text-shadow:0 0 15px #ffb6c1, 0 0 40px #ff69b4;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+/* Envelope */
+.letter-wrapper{
+margin-top:25px;
+opacity:0;
+transition:1.5s ease;
+}
+
+.envelope{
+width:100%;
+max-width:320px;
+height:190px;
+background:#fff3e8;
+margin:auto;
+border-radius:10px;
+box-shadow:0 15px 40px rgba(0,0,0,0.4);
+transition:transform 1.5s ease;
+position:relative;
+}
+
+.rise{
+transform:translateY(-40px);
+}
+
+.flap{
+position:absolute;
+width:0;
+height:0;
+border-left:50% solid transparent;
+border-right:50% solid transparent;
+border-bottom:95px solid #f6c7b6;
+top:-95px;
+left:0;
+transition:1s;
+transform-origin:bottom;
+}
+
+.letter{
+position:absolute;
+width:90%;
+height:80%;
+background:white;
+top:10%;
+left:5%;
+border-radius:6px;
+padding:12px;
+font-family:'Dancing Script',cursive;
+font-size:clamp(18px, 4vw, 24px);
+color:#5a3e36;
+opacity:0;
+transition:1s;
+}
+
+.open .flap{
+transform:rotateX(180deg);
+}
+
+.open .letter{
+opacity:1;
+}
+
+.final-love{
+font-family:'Dancing Script',cursive;
+font-size:clamp(40px, 8vw, 70px);
+margin-top:20px;
+opacity:0;
+text-shadow:0 0 10px #ff69b4,
+0 0 25px #ff85c1,
+0 0 50px #ffb6c1;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px #ff69b4;}
+to{text-shadow:0 0 50px #ff85c1;}
+}
+
+/* Floating photos responsive */
+.photo{
+position:absolute;
+width:clamp(80px, 20vw, 130px);
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,0.5);
+animation:floatPhoto linear infinite;
+z-index:1;
+}
+
+@keyframes floatPhoto{
+0%{transform:translateY(100vh) rotate(0deg);}
+100%{transform:translateY(-120vh) rotate(360deg);}
+}
+
+.flash{
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+z-index:3;
+}
+</style>
+</head>
+
+<body>
+
+<div class="flash" id="flash"></div>
+
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3d8a9a8f61.mp3?filename=romantic-background-112191.mp3">
+</audio>
+
+<div class="container" id="startScreen">
+<h2>Would you like to receive a special VDAY message from Parth? 🌸</h2>
+<button onclick="startMusic();showQuestion()">Yes 💕</button>
+<button id="noBtn">No 🙈</button>
+</div>
+
+<div class="container" id="questionScreen" style="display:none;">
+<h3>Which color tshirt did I wear on our last date on 14th February?</h3>
+<button onclick="checkAnswer('black')">Black</button>
+<button onclick="checkAnswer('blue')">Blue</button>
+<button onclick="checkAnswer('white')">White</button>
+<button onclick="checkAnswer('offwhite')">Offwhite</button>
+</div>
+
+<div class="container" id="mainContent" style="display:none;">
+<h3>Click the heart 7 times, Pri 💖</h3>
+<div class="heart" onclick="countClicks()">💗</div>
+
+<div class="letter-wrapper" id="letterWrapper">
+<div class="envelope" id="envelope">
+<div class="flap"></div>
+<div class="letter">
+Happy Valentine’s Day, Pri 🌻<br>
+You are my sunshine, my blueberry,<br>
+my forever home in this world 🫐🐱
+</div>
+</div>
+</div>
+
+<div class="final-love" id="finalLove">I Love You 💖</div>
+</div>
+
+<script>
+const correctAnswer="white";
+
+function startMusic(){
+document.getElementById("bgMusic").play();
+}
+
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+function moveNo(){
+const x=Math.random()*(window.innerWidth-120);
+const y=Math.random()*(window.innerHeight-60);
+noBtn.style.position="fixed";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+
+function showQuestion(){
+startScreen.style.display="none";
+questionScreen.style.display="block";
+}
+
+function checkAnswer(ans){
+if(ans===correctAnswer){
+questionScreen.style.display="none";
+mainContent.style.display="block";
+addPhotos();
+}else{
+alert("Wrong answer 😝");
+}
+}
+
+let clicks=0;
+
+function countClicks(){
+clicks++;
+if(clicks===7){
+flash.style.opacity="0.7";
+setTimeout(()=>flash.style.opacity="0",300);
+letterWrapper.style.opacity="1";
+envelope.classList.add("rise");
+setTimeout(()=>{
+envelope.classList.add("open");
+finalLove.style.opacity="1";
+},1500);
+}
+}
+
+function addPhotos(){
+for(let i=1;i<=5;i++){
+let img=document.createElement("img");
+img.src="photo"+i+".JPG";
+img.className="photo";
+img.style.left=Math.random()*80+"vw";
+img.style.animationDuration=(12+Math.random()*10)+"s";
+document.body.appendChild(img);
+}
+}
+</script>
+
+</body>
+</html>
