@@ -22,13 +22,13 @@ justify-content:center;
 align-items:center;
 background:url("background.jpg") center/cover no-repeat;
 font-family:'Poppins',sans-serif;
-text-align:center;
 color:white;
+text-align:center;
 position:relative;
 overflow:hidden;
 }
 
-/* soft overlay */
+/* Overlay */
 body::before{
 content:"";
 position:absolute;
@@ -37,28 +37,39 @@ background:rgba(0,0,0,0.35);
 z-index:0;
 }
 
-.container{
-position:relative;
-z-index:2;
-width:90%;
-max-width:500px;
-padding:20px;
+.screen{
+position:absolute;
+inset:0;
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
+padding:20px;
+z-index:2;
 }
 
-/* Headings */
+.hidden{
+display:none;
+}
+
 h2, h3{
-margin-bottom:20px;
+margin-bottom:25px;
+max-width:600px;
 line-height:1.4;
+}
+
+/* Button container */
+.button-group{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
+align-items:center;
 }
 
 /* Buttons */
 button{
 padding:12px 24px;
-margin:8px;
 border:none;
 border-radius:30px;
 background:white;
@@ -71,11 +82,6 @@ font-size:16px;
 
 button:hover{
 transform:scale(1.08);
-}
-
-#noBtn{
-position:absolute;
-transition:0.5s ease;
 }
 
 /* Heart */
@@ -103,14 +109,13 @@ justify-content:center;
 }
 
 .envelope{
-width:100%;
-max-width:320px;
+width:320px;
 height:190px;
 background:#fff3e8;
 border-radius:10px;
 box-shadow:0 15px 40px rgba(0,0,0,0.4);
-transition:transform 1.5s ease;
 position:relative;
+transition:transform 1.5s ease;
 }
 
 .rise{
@@ -140,7 +145,7 @@ left:5%;
 border-radius:6px;
 padding:15px;
 font-family:'Dancing Script',cursive;
-font-size:clamp(18px, 4vw, 24px);
+font-size:22px;
 color:#5a3e36;
 opacity:0;
 transition:1s;
@@ -159,11 +164,10 @@ transform:rotateX(180deg);
 opacity:1;
 }
 
-/* Final Text */
 .final-love{
 font-family:'Dancing Script',cursive;
 font-size:clamp(40px, 8vw, 70px);
-margin-top:25px;
+margin-top:30px;
 opacity:0;
 text-shadow:0 0 10px #ff69b4,
 0 0 25px #ff85c1,
@@ -207,23 +211,29 @@ z-index:3;
 
 <div class="flash" id="flash"></div>
 
-<div class="container" id="startScreen">
+<!-- START SCREEN -->
+<div class="screen" id="startScreen">
 <h2>Would you like to receive a special VDAY message from Parth? 🌸</h2>
 <div class="button-group">
-  <button onclick="showQuestion()">Yes 💕</button>
-  <button id="noBtn">No 🙈</button>
+<button onclick="showQuestion()">Yes 💕</button>
+<button id="noBtn">No 🙈</button>
+</div>
 </div>
 
-<div class="container" id="questionScreen" style="display:none;">
+<!-- QUESTION SCREEN -->
+<div class="screen hidden" id="questionScreen">
 <h3>Which color tshirt did I wear on our last date on 14th February?</h3>
+<div class="button-group">
 <button onclick="checkAnswer('black')">Black</button>
 <button onclick="checkAnswer('blue')">Blue</button>
 <button onclick="checkAnswer('white')">White</button>
 <button onclick="checkAnswer('offwhite')">Offwhite</button>
 </div>
+</div>
 
-<div class="container" id="mainContent" style="display:none;">
-<h3>Click the heart (yk how many times) </h3>
+<!-- MAIN SCREEN -->
+<div class="screen hidden" id="mainContent">
+<h3>Click the heart (yk how many times) 💖</h3>
 
 <div class="heart" onclick="countClicks()">💗</div>
 
@@ -232,7 +242,7 @@ z-index:3;
 <div class="flap"></div>
 <div class="letter">
 Happy Valentine’s Day, Pri 🌻<br>
-You are my forever home in this world 🫐
+You are my forever home in this world 🫐🐱
 </div>
 </div>
 </div>
@@ -244,34 +254,37 @@ You are my forever home in this world 🫐
 
 const correctAnswer="white";
 
-/* Sliding No button */
+/* Sliding No Button */
 const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",moveNo);
+
+noBtn.addEventListener("mouseenter",moveNo);
 noBtn.addEventListener("touchstart",moveNo);
 
 function moveNo(){
+noBtn.style.position="fixed";
 const x=Math.random()*(window.innerWidth-120);
 const y=Math.random()*(window.innerHeight-60);
-noBtn.style.position="fixed";
 noBtn.style.left=x+"px";
 noBtn.style.top=y+"px";
 }
 
+/* Navigation */
 function showQuestion(){
-document.getElementById("startScreen").style.display="none";
-document.getElementById("questionScreen").style.display="flex";
+document.getElementById("startScreen").classList.add("hidden");
+document.getElementById("questionScreen").classList.remove("hidden");
 }
 
 function checkAnswer(ans){
 if(ans===correctAnswer){
-document.getElementById("questionScreen").style.display="none";
-document.getElementById("mainContent").style.display="flex";
+document.getElementById("questionScreen").classList.add("hidden");
+document.getElementById("mainContent").classList.remove("hidden");
 addPhotos();
 }else{
 alert("Wrong answer 😝");
 }
 }
 
+/* Heart Logic */
 let clicks=0;
 
 function countClicks(){
@@ -291,6 +304,7 @@ document.getElementById("finalLove").style.opacity="1";
 }
 }
 
+/* Floating Photos */
 function addPhotos(){
 for(let i=1;i<=5;i++){
 let img=document.createElement("img");
