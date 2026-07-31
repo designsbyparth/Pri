@@ -1,322 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Pri 🌿</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Love 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffdde1 100%);
+            color: #4a4a4a;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        /* Floating background hearts animation */
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-body{
-height:100vh;
-width:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-background:url("background.jpg") center/cover no-repeat;
-font-family:'Poppins',sans-serif;
-color:white;
-text-align:center;
-position:relative;
-overflow:hidden;
-}
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 22px;
+            animation: floatUp 7s linear infinite;
+        }
 
-/* Overlay */
-body::before{
-content:"";
-position:absolute;
-inset:0;
-background:rgba(0,0,0,0.35);
-z-index:0;
-}
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.6);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.3);
+                opacity: 0;
+            }
+        }
 
-.screen{
-position:absolute;
-inset:0;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:20px;
-z-index:2;
-}
+        /* Sections Structure */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
 
-.hidden{
-display:none;
-}
+        /* SECTION 1: Welcome/Surprise */
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            max-width: 550px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            animation: fadeIn 1.5s ease-out;
+        }
 
-h2, h3{
-margin-bottom:25px;
-max-width:600px;
-line-height:1.4;
-}
+        .welcome-card h1 {
+            font-family: 'Sacramento', cursive;
+            font-size: 3.8rem;
+            color: #d63384;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
 
-/* Button container */
-.button-group{
-display:flex;
-flex-wrap:wrap;
-gap:15px;
-justify-content:center;
-align-items:center;
-}
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
 
-/* Buttons */
-button{
-padding:12px 24px;
-border:none;
-border-radius:30px;
-background:white;
-color:#6b3e2e;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
-font-size:16px;
-}
+        .scroll-down-hint {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #ff758c;
+            font-weight: 500;
+            text-decoration: none;
+            animation: bounce 2s infinite;
+        }
 
-button:hover{
-transform:scale(1.08);
-}
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
 
-/* Heart */
-.heart{
-font-size:clamp(80px, 15vw, 130px);
-cursor:pointer;
-animation:pulse 1.5s infinite;
-text-shadow:0 0 15px #ffb6c1, 0 0 40px #ff69b4;
-margin:20px 0;
-}
+        /* SECTION 2: Custom Message Banner */
+        .message-section-box {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 650px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid #ff758c;
+        }
 
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
-}
+        .message-section-box h2 {
+            font-family: 'Sacramento', cursive;
+            font-size: 2.8rem;
+            color: #d63384;
+            margin-bottom: 15px;
+        }
 
-/* Envelope */
-.letter-wrapper{
-margin-top:20px;
-opacity:0;
-transition:1.5s ease;
-display:flex;
-justify-content:center;
-}
+        .message-section-box p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #555;
+        }
 
-.envelope{
-width:320px;
-height:190px;
-background:#fff3e8;
-border-radius:10px;
-box-shadow:0 15px 40px rgba(0,0,0,0.4);
-position:relative;
-transition:transform 1.5s ease;
-}
+        /* SECTION 3: Seven Letters / Envelopes */
+        .letters-container {
+            max-width: 800px;
+            width: 90%;
+        }
 
-.rise{
-transform:translateY(-40px);
-}
+        .letters-container h2 {
+            font-family: 'Sacramento', cursive;
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 10px;
+        }
 
-.flap{
-position:absolute;
-width:0;
-height:0;
-border-left:160px solid transparent;
-border-right:160px solid transparent;
-border-bottom:95px solid #f6c7b6;
-top:-95px;
-left:0;
-transition:1s;
-transform-origin:bottom;
-}
+        .letters-container p.sub {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 35px;
+        }
 
-.letter{
-position:absolute;
-width:90%;
-height:80%;
-background:white;
-top:10%;
-left:5%;
-border-radius:6px;
-padding:15px;
-font-family:'Dancing Script',cursive;
-font-size:22px;
-color:#5a3e36;
-opacity:0;
-transition:1s;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
+        .envelope-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
 
-.open .flap{
-transform:rotateX(180deg);
-}
+        .envelope-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 2px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
 
-.open .letter{
-opacity:1;
-}
+        .envelope-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(214, 51, 132, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
 
-.final-love{
-font-family:'Dancing Script',cursive;
-font-size:clamp(40px, 8vw, 70px);
-margin-top:30px;
-opacity:0;
-text-shadow:0 0 10px #ff69b4,
-0 0 25px #ff85c1,
-0 0 50px #ffb6c1;
-animation:glow 2s infinite alternate;
-}
+        .envelope-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
 
-@keyframes glow{
-from{text-shadow:0 0 10px #ff69b4;}
-to{text-shadow:0 0 50px #ff85c1;}
-}
+        .envelope-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #333;
+        }
 
-/* Floating Photos */
-.photo{
-position:absolute;
-width:clamp(80px, 18vw, 130px);
-border-radius:15px;
-box-shadow:0 10px 20px rgba(0,0,0,0.5);
-animation:floatPhoto linear infinite;
-z-index:1;
-}
+        /* Expandable Letter Content Box */
+        .letter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            background: #fff0f3;
+            border-radius: 12px;
+            margin-top: 0px;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            text-align: left;
+            padding: 0 15px;
+        }
 
-@keyframes floatPhoto{
-0%{transform:translateY(100vh) rotate(0deg);}
-100%{transform:translateY(-120vh) rotate(360deg);}
-}
+        .envelope-card.open .letter-content {
+            max-height: 200px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #ff758c;
+        }
 
-.flash{
-position:fixed;
-inset:0;
-background:white;
-opacity:0;
-pointer-events:none;
-transition:0.3s;
-z-index:3;
-}
-</style>
+        /* SECTION 4: Final Love Message */
+        .final-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .final-card h2 {
+            font-family: 'Sacramento', cursive;
+            font-size: 3.5rem;
+            color: #d63384;
+            margin-bottom: 20px;
+        }
+
+        .final-card p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="flash" id="flash"></div>
+    <!-- Floating Background Hearts -->
+    <div class="hearts-container" id="heartsContainer"></div>
 
-<!-- START SCREEN -->
-<div class="screen" id="startScreen">
-<h2>Would you like to receive a special VDAY message from Parth? 🌸</h2>
-<div class="button-group">
-<button onclick="showQuestion()">Yes 💕</button>
-<button id="noBtn">No 🙈</button>
-</div>
-</div>
+    <!-- SECTION 1: Welcome Surprise -->
+    <section>
+        <div class="welcome-card">
+            <h1>Hey Cutie... ✨</h1>
+            <p>I built a little something special just for you. Scroll down to see what's inside! 💌</p>
+            <a href="#section2" class="scroll-down-hint">Scroll Down ↓</a>
+        </div>
+    </section>
 
-<!-- QUESTION SCREEN -->
-<div class="screen hidden" id="questionScreen">
-<h3>Which color tshirt did I wear on our last date on 14th February?</h3>
-<div class="button-group">
-<button onclick="checkAnswer('black')">Black</button>
-<button onclick="checkAnswer('blue')">Blue</button>
-<button onclick="checkAnswer('white')">White</button>
-<button onclick="checkAnswer('offwhite')">Offwhite</button>
-</div>
-</div>
+    <!-- SECTION 2: Custom Message -->
+    <section id="section2">
+        <div class="message-section-box">
+            <h2>My Dearest...</h2>
+            <p>I am truly blessed to have you as my girlfriend. Every single day with you feels like a warm sunshine and an absolute gift. Thank you for filling my world with your beautiful smiles and endless love.</p>
+        </div>
+    </section>
 
-<!-- MAIN SCREEN -->
-<div class="screen hidden" id="mainContent">
-<h3>Click the heart (yk how many times) 💖</h3>
+    <!-- SECTION 3: Seven Letters -->
+    <section>
+        <div class="letters-container">
+            <h2>Little Notes For You</h2>
+            <p class="sub">Click on any icon below to open or close the message 🤍</p>
+            
+            <div class="envelope-grid">
+                <!-- Letter 1 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">💌</div>
+                    <div class="envelope-title">When you smile</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        Your smile literally brightens up even my absolute gloomiest days. Never stop smiling!
+                    </div>
+                </div>
 
-<div class="heart" onclick="countClicks()">💗</div>
+                <!-- Letter 2 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">🌹</div>
+                    <div class="envelope-title">My safe place</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        No matter how chaotic things get around me, talking to you instantly brings me complete peace.
+                    </div>
+                </div>
 
-<div class="letter-wrapper" id="letterWrapper">
-<div class="envelope" id="envelope">
-<div class="flap"></div>
-<div class="letter">
-Happy Valentine’s Day, Pri 🌻<br>
-You are my forever home in this world 🫐🐱
-</div>
-</div>
-</div>
+                <!-- Letter 3 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">🧸</div>
+                    <div class="envelope-title">Little things</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        I love the little habits you have, the way you talk, and how effortlessly you make me happy.
+                    </div>
+                </div>
 
-<div class="final-love" id="finalLove">I Love You 💖</div>
-</div>
+                <!-- Letter 4 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">✨</div>
+                    <div class="envelope-title">Proud of you</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        I see how hard you work and how amazing you are at everything. I'm always cheering for you!
+                    </div>
+                </div>
 
-<script>
+                <!-- Letter 5 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">☕</div>
+                    <div class="envelope-title">Our memories</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        Every single moment we spend together becomes my favorite core memory instantly.
+                    </div>
+                </div>
 
-const correctAnswer="white";
+                <!-- Letter 6 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">🌙</div>
+                    <div class="envelope-title">Late night thoughts</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        You're the very last person I think about before I fall asleep and the first person when I wake up.
+                    </div>
+                </div>
 
-/* Sliding No Button */
-const noBtn=document.getElementById("noBtn");
+                <!-- Letter 7 -->
+                <div class="envelope-card" onclick="toggleLetter(this)">
+                    <div class="envelope-icon">💫</div>
+                    <div class="envelope-title">Forever & Always</div>
+                    <div class="letter-content">
+                        <!-- CUSTOMIZE HERE -->
+                        No matter where life takes us, I want you right by my side through everything.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-noBtn.addEventListener("mouseenter",moveNo);
-noBtn.addEventListener("touchstart",moveNo);
+    <!-- SECTION 4: Final Message -->
+    <section>
+        <div class="final-card">
+            <h2>Forever Yours</h2>
+            <p>I really love you so much Pre, and I am truly blessed to have you in my life. I love you. 💕</p>
+        </div>
+    </section>
 
-function moveNo(){
-noBtn.style.position="fixed";
-const x=Math.random()*(window.innerWidth-120);
-const y=Math.random()*(window.innerHeight-60);
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-}
+    <script>
+        // Generate floating background hearts automatically
+        const heartsContainer = document.getElementById('heartsContainer');
+        const heartSymbols = ['💖', '💕', '💗', '💓', '✨', '🌸', '💌'];
 
-/* Navigation */
-function showQuestion(){
-document.getElementById("startScreen").classList.add("hidden");
-document.getElementById("questionScreen").classList.remove("hidden");
-}
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+            heartsContainer.appendChild(heart);
 
-function checkAnswer(ans){
-if(ans===correctAnswer){
-document.getElementById("questionScreen").classList.add("hidden");
-document.getElementById("mainContent").classList.remove("hidden");
-addPhotos();
-}else{
-alert("Wrong answer 😝");
-}
-}
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
 
-/* Heart Logic */
-let clicks=0;
+        setInterval(createHeart, 350);
 
-function countClicks(){
-clicks++;
-if(clicks===7){
-const flash=document.getElementById("flash");
-flash.style.opacity="0.7";
-setTimeout(()=>flash.style.opacity="0",300);
-
-document.getElementById("letterWrapper").style.opacity="1";
-document.getElementById("envelope").classList.add("rise");
-
-setTimeout(()=>{
-document.getElementById("envelope").classList.add("open");
-document.getElementById("finalLove").style.opacity="1";
-},1500);
-}
-}
-
-/* Floating Photos */
-function addPhotos(){
-for(let i=1;i<=5;i++){
-let img=document.createElement("img");
-img.src="photo"+i+".JPG";
-img.className="photo";
-img.style.left=Math.random()*80+"vw";
-img.style.animationDuration=(12+Math.random()*10)+"s";
-document.body.appendChild(img);
-}
-}
-
-</script>
-
+        // Toggle open/close function for the 7 letters
+        function toggleLetter(card) {
+            // Optional: Close other open letters if you want only one open at a time
+            // document.querySelectorAll('.envelope-card').forEach(c => {
+            //     if(c !== card) c.classList.remove('open');
+            // });
+            
+            card.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
